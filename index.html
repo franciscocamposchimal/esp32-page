@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARIDO</title>
+</head>
+
+<body>
+    <div style="
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center;">
+        <h3>ARIDO SMART CONFIG</h3>
+        <div> 
+            <ul id="avNets"></ul>
+        </div>
+        <form style="
+        display: flex; 
+        flex-direction: column; 
+        align-items: start;">
+            <label for="lssid">SSID</label>
+            <input type="text" id="lssid" name="ssid" placeholder="SSID..">
+
+            <label for="lpass">PASS</label>
+            <input type="text" id="lpass" name="pass" placeholder="Pass..">
+
+            <label for="ltopicsubs">TOPIC SUBSCRIBE</label>
+            <input type="text" id="ltopicsubs" name="sub" placeholder="Topic subscribe..">
+
+            <label for="ltopicpub">TOPIC PUBLISH</label>
+            <input type="text" id="ltopicpub" name="pub" placeholder="Topic publish..">
+
+            <label for="lsensor">SENSOR</label>
+            <select id="lsensor" name="sensor">
+                <option value="temp">Temperatura</option>
+                <option value="press">Presion</option>
+                <option value="other">Otro</option>
+            </select>
+            <input style="
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            transition-duration: 0.4s;
+            background-color: white;
+            color: black;
+            border: 2px solid #008CBA;
+            cursor: pointer;" id="snd" value="Guardar">
+        </form>
+    </div>
+</body>
+<script>
+    const ulNet = document.getElementById("avNets");
+    const ssidInput = document.getElementById("lssid");
+    const passInput = document.getElementById("lpass");
+    const subInput = document.getElementById("ltopicsubs");
+    const pubInput = document.getElementById("ltopicpub");
+    const senInput = document.getElementById("lsensor");
+    const saveBtn = document.getElementById("snd");
+    // const xhr = new XMLHttpRequest();
+
+    const netList = ["Pineaple-mansion", "INFINITUMC0A5_2.4", "Totalplay-779C", "Ohara", "INFINITUM649D_2.4", "TOTALPLAY_D4B99C"];
+    netList.forEach(netItem => {
+        const li = document.createElement('li');
+        li.appendChild(document.createTextNode(netItem));
+        li.className = 'item';
+        ulNet.appendChild(li);
+    });
+    
+    /* xhr.open("GET", "/networks", true);
+    xhr.responseType = 'json';
+    xhr.onload = () => {
+        const listNets = xhr.response; 
+        listNets.forEach(netItem => {
+           const li = document.createElement('li');
+           li.appendChild(document.createTextNode(netItem));
+           li.className = 'item';
+           ulNet.appendChild(li);
+        });
+    };
+    xhr.send(); */
+    ulNet.addEventListener("click", (e) => {
+        ssidInput.value = e.target.innerText;
+    });
+    saveBtn.addEventListener("click", () => {
+        
+        const dataToSend = {
+            ssid: ssidInput.value,
+            pass: passInput.value,
+            sub: subInput.value,
+            pub: pubInput.value,
+            sensor: senInput.value 
+        };
+        console.log(dataToSend);
+    });
+</script></html>
