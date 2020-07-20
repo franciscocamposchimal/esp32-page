@@ -30,7 +30,7 @@
         }
         label {padding: 12px 12px 12px 0;display: inline-block;
         }
-        input[type=submit] {
+        #snd {
             background-color: #4CAF50;
             color: white;
             width: 100%;
@@ -40,7 +40,7 @@
             cursor: pointer;
             margin-top: 6px;
         }
-        input[type=submit]:hover {background-color: #45a049;}
+        #snd:hover {background-color: #45a049;}
         .container {
             width: 35%;
             border-radius: 5px;
@@ -54,7 +54,7 @@
             .col-25,
             .col-75,
             .container,
-            input[type=submit] {
+            #snd {
                 width: 100%;
                 margin-top: 6px;
             }
@@ -78,9 +78,7 @@
     <div class="center">
         <div class="container">
             <h3 class="title">ARIDO SMART CONFIG</h3>
-            <div id="padre">
-                <!-- <ul id="avNets"></ul> -->
-            </div>
+            <div id="networksList"></div>
             <form style="display: flex; flex-direction: column; align-items: start;">
                 <div class="row">
                     <div class="col-75">
@@ -94,8 +92,8 @@
                     </div>
 
                     <div class="col-75">
-                        <label for="lipserver">IP SERVER</label>
-                        <input type="text" id="lipserver" name="ipserver" placeholder="Ip server.." />
+                        <label for="lbroker">IP BROKER SERVER</label>
+                        <input type="text" id="lbroker" name="brokerServer" placeholder="Ip server.." />
                     </div>
 
                     <div class="col-75">
@@ -116,7 +114,7 @@
                         </select>
                     </div>
                     <div class="col-75">
-                        <input type="submit" class="btnSave" id="snd" value="Guardar" />
+                        <input class="btnSave" id="snd" value="Guardar" />
                     </div>
                 </div>
             </form>
@@ -125,10 +123,9 @@
 </body>
 
 <script>
-    const ulNet = document.getElementById("avNets");
     const ssidInput = document.getElementById("lssid");
     const passInput = document.getElementById("lpass");
-    const ipServer = document.getElementById("lipServer");
+    const brokerServer = document.getElementById("lbroker");
     const subInput = document.getElementById("ltopicsubs");
     const pubInput = document.getElementById("ltopicpub");
     const senInput = document.getElementById("lsensor");
@@ -147,14 +144,13 @@
     netList.forEach((netItem) => {
         const element = document.createElement("div");
         const text = document.createTextNode(netItem);
-        element.className = "chip"
+        element.className = "chip";
         element.onclick = () => {
             ssidInput.value = netItem;
         };
         element.appendChild(text);
-        const dentro = document.getElementById("padre");
-        document.getElementById("padre").appendChild(element)
-    })
+        document.getElementById("networksList").appendChild(element);
+    });
 
     /* xhr.open("GET", "/networks", true);
     xhr.responseType = 'json';
@@ -173,7 +169,7 @@
         const dataToSend = {
             ssid: ssidInput.value,
             pass: passInput.value,
-            ip: ipServer.value,
+            ipBroker: brokerServer.value,
             sub: subInput.value,
             pub: pubInput.value,
             sensor: senInput.value,
